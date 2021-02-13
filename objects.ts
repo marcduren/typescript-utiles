@@ -21,3 +21,18 @@ export function deepEqual(a: any, b: any): boolean {
 
   return props.every((p) => deepEqual(a[p], b[p]))
 }
+
+export function deepCopy<T>(obj: T): T {
+  if (typeof obj !== 'object' || obj === null) return obj
+
+  if (obj instanceof Array) return (obj.map(deepCopy) as unknown) as T
+
+  const copy = {} as T
+  ;(Object.getOwnPropertyNames(obj) as (keyof T)[]).forEach(prop => {
+    copy[prop] = deepCopy(obj[prop])
+  })
+
+  Object.setPrototypeOf(copy, Object.getPrototypeOf(obj))
+
+  return copy
+}
