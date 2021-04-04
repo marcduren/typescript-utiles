@@ -31,3 +31,23 @@ export function dateFromString(stdate: string /**yyyy-mm-dd */): Date {
   const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 12)
   return date
 }
+const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+const mois = [
+  'janvier',
+  'février',
+  'mars',
+  'avril',
+  'mai',
+  'juin',
+  'juillet',
+  'août',
+  'septembre',
+  'octobre',
+  'novembre',
+  'décembre',
+]
+export function dateFrancaise(dte: Date): string {
+  const i = dte.getDay()
+  const s = jours[i] + ' ' + dte.getDate() + ' ' + mois[dte.getMonth() - 1]
+  return s
+}
