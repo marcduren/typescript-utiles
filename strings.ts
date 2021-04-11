@@ -1,4 +1,4 @@
-export function padEnd(str: string, length: number, char = '0') {
+export function padEnd(str: string, length: number, char = '0'): string {
   return str + char.repeat(Math.max(0, length - str.length))
 }
 
