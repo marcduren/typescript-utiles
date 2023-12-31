@@ -1,4 +1,5 @@
-export function stringFromDate(dte: Date): string {
+export function stringFromDate(dte: Date, iso = true): string {
+  /// iso =yyyy-mm-dd , sinon jj/mm/aaaa
   if (dte === null) return ''
   if (dte === undefined) return ''
   const y = dte.getFullYear()
@@ -6,7 +7,8 @@ export function stringFromDate(dte: Date): string {
   const d = dte.getDate()
   const mmo = (mo < 10 ? '0' : '') + mo
   const dd = (d < 10 ? '0' : '') + d
-  return `${y}-${mmo}-${dd}`
+  if (iso) return `${y}-${mmo}-${dd}`
+  else return `${dd}/${mmo}/${y}`
 }
 export function stringFromDatetime(dte: Date): string {
   if (dte === null) return ''
@@ -24,7 +26,6 @@ export function stringFromDatetime(dte: Date): string {
 
   return `${y}-${mmo}-${dd} ${hh}:${mmn}`
 }
-
 export function dateFromString(stdate: string /**yyyy-mm-dd */): Date {
   if (stdate == null) return new Date()
   const [year, month, day] = stdate.split('-')
@@ -32,20 +33,7 @@ export function dateFromString(stdate: string /**yyyy-mm-dd */): Date {
   return date
 }
 const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
-const mois = [
-  'janvier',
-  'février',
-  'mars',
-  'avril',
-  'mai',
-  'juin',
-  'juillet',
-  'août',
-  'septembre',
-  'octobre',
-  'novembre',
-  'décembre',
-]
+const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 export function dateFrancaise(dte: Date): string {
   const i = dte.getDay()
   const s = jours[i] + ' ' + dte.getDate() + ' ' + mois[dte.getMonth() - 1]
