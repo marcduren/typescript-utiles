@@ -1,4 +1,4 @@
-export function stringFromDate(dte: Date, iso = true): string {
+export function stringFromDate(dte: Date, iso = true, heure = false): string {
   /// iso =yyyy-mm-dd , sinon jj/mm/aaaa
   if (dte === null) return ''
   if (dte === undefined) return ''
@@ -7,24 +7,18 @@ export function stringFromDate(dte: Date, iso = true): string {
   const d = dte.getDate()
   const mmo = (mo < 10 ? '0' : '') + mo
   const dd = (d < 10 ? '0' : '') + d
-  if (iso) return `${y}-${mmo}-${dd}`
-  else return `${dd}/${mmo}/${y}`
+  let s = iso ? `${y}-${mmo}-${dd}` : `${dd}/${mmo}/${y}`
+  if (heure) {
+    const h = dte.getHours()
+    const mn = dte.getMinutes()
+    const hh = (h < 10 ? '0' : '') + h
+    const mmn = (mn < 10 ? '0' : '') + mn
+    s += ` ${hh}:${mmn}`
+  }
+  return s
 }
-export function stringFromDatetime(dte: Date): string {
-  if (dte === null) return ''
-  if (dte === undefined) return ''
-  const y = dte.getFullYear()
-  const mo = dte.getMonth() + 1
-  const d = dte.getDate()
-  const mmo = (mo < 10 ? '0' : '') + mo
-  const dd = (d < 10 ? '0' : '') + d
-
-  const h = dte.getHours()
-  const mn = dte.getMinutes()
-  const hh = (h < 10 ? '0' : '') + h
-  const mmn = (mn < 10 ? '0' : '') + mn
-
-  return `${y}-${mmo}-${dd} ${hh}:${mmn}`
+export function stringFromDatetime(dte: Date, iso = true): string {
+  return stringFromDate(dte, iso, true)
 }
 export function dateFromString(stdate: string /**yyyy-mm-dd */): Date {
   if (stdate == null) return new Date()
