@@ -19,3 +19,7 @@ export function nombreEntier(n: number): string {
     return ''
   }
 }
+
+export function arrondir(nombre: number, decimales: number): number {
+  return parseFloat(nombre.toFixed(decimales))
+}
